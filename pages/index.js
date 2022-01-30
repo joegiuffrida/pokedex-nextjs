@@ -83,6 +83,12 @@ const PokemonLink = styled.a`
   border-radius: 10px;
   text-decoration: none;
   color: black;
+  transition: box-shadow 0.25s, transform 0.25s;
+
+  &:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #9090fc;
+    transform: translateY(-0.25em);
+  }
 `;
 
 const PokemonImage = styled.img`

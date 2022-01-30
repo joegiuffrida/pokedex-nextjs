@@ -1,6 +1,36 @@
+import Head from 'next/head';
+import Link from 'next/link';
+import styled from 'styled-components';
+
 const Pokemon = ({ poke }) => {
-  console.log(poke);
-  return <div></div>;
+  return (
+    <Wrapper>
+      <Head>
+        <title>{poke.name}</title>
+      </Head>
+      <PageTitle>{poke.name}</PageTitle>
+      <PokeImage src={poke.image} alt={poke.name} />
+      <p>
+        <Attributes>
+          Weight: <span>{poke.weight}</span>
+        </Attributes>
+      </p>
+      <p>
+        <Attributes>
+          Height: <span>{poke.height}</span>
+        </Attributes>
+      </p>
+      <Types>Types</Types>
+      {poke.types.map((type, index) => {
+        return <p key={index}>{type.type.name}</p>;
+      })}
+      <HomeLinkWrapper>
+        <Link href="/" passHref>
+          <a>Home</a>
+        </Link>
+      </HomeLinkWrapper>
+    </Wrapper>
+  );
 };
 
 export const getServerSideProps = async ({ query }) => {
@@ -21,5 +51,42 @@ export const getServerSideProps = async ({ query }) => {
     console.error(err);
   }
 };
+
+const Wrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const PageTitle = styled.h1`
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  margin: 15px 0;
+  text-align: center;
+`;
+
+const PokeImage = styled.img`
+  width: 40%;
+  margin: 0 auto;
+`;
+
+const Attributes = styled.span`
+  font-weight: bold;
+
+  > span {
+    font-weight: normal;
+  }
+`;
+
+const Types = styled.h2`
+  font-size: 1.25rem;
+  margin: 10px 0;
+`;
+
+const HomeLinkWrapper = styled.p`
+  margin: 15px;
+  text-align: center;
+  font-size: 1.25rem;
+`;
 
 export default Pokemon;
